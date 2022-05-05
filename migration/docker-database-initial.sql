@@ -1,8 +1,5 @@
-create table if not exists personalidades(
-    id serial primary key,
-    nome varchar,
-    historia varchar
-);
+
+CREATE TABLE IF NOT EXISTS personalidades( id serial primary key, nome VARCHAR, historia VARCHAR);
 
 INSERT INTO personalidades(nome, historia) VALUES
 ('Deodato Petit Wertheimer', 'Deodato Petit Wertheimer foi um médico e político brasileiro, seus primeiros anos de vida foram em São Paulo, mas logo mudou para Nova Friburgo no Estado do Rio de Janeiro e com 11 anos de idade ingressou no Colégio Anchieta dos jesuítas.'),

@@ -1,10 +1,10 @@
 package controllers
 
 import (
+	"api_rest_go_01/database"
 	"api_rest_go_01/models"
 	"encoding/json"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -15,8 +15,11 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func TodasPersonalidades(w http.ResponseWriter, r *http.Request) {
+	//criar a variavel lista de personalidades
+	var p []models.Personalidade
+	database.DB.Find(&p)
 	//encodar o retorno do w em json
-	json.NewEncoder(w).Encode(models.Personalidades)
+	json.NewEncoder(w).Encode(p)
 }
 
 func RetornaUmaPersonalidade(w http.ResponseWriter, r *http.Request) {
@@ -24,11 +27,15 @@ func RetornaUmaPersonalidade(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	for _, personalidade := range models.Personalidades {
-		//comparar os valores, transformando ID em string
-		if strconv.Itoa(personalidade.ID) == id {
-			//retornar o jsonEncode de personalidade
-			json.NewEncoder(w).Encode(personalidade)
-		}
-	}
+	var personalidade models.Personalidade
+
+	database.DB.First(&personalidade, id)
+	json.NewEncoder(w).Encode(personalidade)
+	// for _, personalidade := range models.Personalidades {
+	// 	//comparar os valores, transformando ID em string
+	// 	if strconv.Itoa(personalidade.ID) == id {
+	// 		//retornar o jsonEncode de personalidade
+	// 		json.NewEncoder(w).Encode(personalidade)
+	// 	}
+	// }
 }
