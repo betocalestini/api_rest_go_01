@@ -1,25 +1,18 @@
 package main
 
 import (
-	"net/http"
-	"os"
+	"api_rest_go_01/models"
+	"api_rest_go_01/routes"
+	"fmt"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("olá mundo!"))
-}
-
 func main() {
-	port := os.Getenv("PORT")
-	if port == "" {
-		panic("$PORT not set")
+
+	models.Personalidades = []models.Personalidade{
+		{Nome: "Nome 1", Historia: "Historia 1"},
+		{Nome: "Nome 1", Historia: "Historia 1"},
 	}
 
-	http.HandleFunc("/", handler)
-	err := http.ListenAndServe(":"+port, nil)
-
-	if err != nil {
-		panic(err)
-	}
-
+	fmt.Println("Iniciando o servidor Rest com Go")
+	routes.HandleRequest()
 }
