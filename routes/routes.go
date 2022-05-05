@@ -2,6 +2,7 @@ package routes
 
 import (
 	"api_rest_go_01/controllers"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -12,7 +13,7 @@ import (
 func HandleRequest() {
 	port := os.Getenv("PORT")
 	if port == "" {
-		panic("$PORT not set")
+		fmt.Println("$PORT not set")
 	}
 
 	r := mux.NewRouter()
